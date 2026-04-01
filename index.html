@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Đoàn Tham Dự Giải Thể Thao Học Sinh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a; /* Xanh đậm trang nhã */
+            --secondary-color: #d97706; /* Vàng cam nhẹ làm điểm nhấn */
+            --bg-color: #f3f4f6;
+            --text-main: #333333;
+            --card-bg: #ffffff;
+            --table-header: #e0e7ff;
+            --table-border: #cbd5e1;
+            --dharma-color: #047857; /* Xanh lá đậm cho Pháp Danh */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 26px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 16px;
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* Nav Grid */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Card Styles */
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 20px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+            font-size: 24px;
+        }
+
+        /* Teachers List Styles */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .teacher-card {
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .teacher-card i {
+            font-size: 24px;
+            color: var(--secondary-color);
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--table-border);
+            border-right: 1px solid var(--table-border);
+        }
+        
+        th:first-child, td:first-child { border-left: 1px solid var(--table-border); }
+        th { border-top: 1px solid var(--table-border); }
+
+        th {
+            background-color: var(--table-header);
+            color: var(--primary-color);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .gender-nam { 
+            color: #2563eb; 
+            font-weight: 500;
+            background-color: #eff6ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .dharma-name {
+            color: var(--dharma-color);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .closing {
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 500;
+            color: var(--primary-color);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 22px; }
+            body { padding: 10px; }
+            th, td { padding: 10px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>DANH SÁCH ĐOÀN THAM DỰ<br>GIẢI THỂ THAO HỌC SINH TPHCM</h1>
+            <p>Thông tin Pháp danh Quý Thầy và các chú tiểu tham gia giải đấu</p>
+        </div>
+
+        <div class="nav-grid">
+            <a href="ke-hoach-thi-dau.html" class="nav-item"><i class="fas fa-bus"></i> Lịch Trình & Đi Lại</a>
+            <a href="lich-thi-dau.html" class="nav-item"><i class="fas fa-calendar-alt"></i> Lịch Thi Đấu</a>
+            <a href="danh-sach-vdv-cap1.html" class="nav-item"><i class="fas fa-child"></i> Danh Sách Cấp 1</a>
+            <a href="danh-sach-vdv-cap2.html" class="nav-item"><i class="fas fa-user-graduate"></i> Danh Sách Cấp 2</a>
+            <a href="danh-sach-vdv.html" class="nav-item"><i class="fas fa-user-ninja"></i> Danh Sách Cấp 3</a>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><i class="fas fa-users"></i> DANH SÁCH QUÝ THẦY</h2>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <i class="fas fa-user-tie"></i> Thầy Thích Pháp Tánh
+                </div>
+                <div class="teacher-card">
+                    <i class="fas fa-user-tie"></i> Thầy Thích Pháp Hỷ
+                </div>
+                <div class="teacher-card">
+                    <i class="fas fa-user-tie"></i> Thầy Thích Pháp Tĩnh
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><i class="fas fa-list-alt"></i> DANH SÁCH CHÚ TIỂU DỰ THI</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="5%">STT</th>
+                            <th width="20%">Họ và tên</th>
+                            <th width="20%">Pháp Danh</th>
+                            <th width="15%">Năm sinh</th>
+                            <th width="10%">Giới Tính</th>
+                            <th width="30%">Trường</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Nguyễn Hoàng Giang</td><td class="dharma-name">Thích Trí Tấn</td><td>10/5/2009</td><td><span class="gender-nam">Nam</span></td><td>77000718-THPT Nguyễn Bỉnh Khiêm</td></tr>
+                        <tr><td>2</td><td>Phan Hoàng An</td><td class="dharma-name">Thích Trí Đạt</td><td>1/26/2009</td><td><span class="gender-nam">Nam</span></td><td>77000718-THPT Nguyễn Bỉnh Khiêm</td></tr>
+                        <tr><td>3</td><td>Võ Anh Khôi</td><td class="dharma-name">Thích Trí Khiêm</td><td>11/06/2012</td><td><span class="gender-nam">Nam</span></td><td>77748508-THCS Trần Đại Nghĩa</td></tr>
+                        <tr><td>4</td><td>Lê Quang Anh</td><td class="dharma-name">Thích Trí Đăng</td><td>26/04/2014</td><td><span class="gender-nam">Nam</span></td><td>77748508-THCS Trần Đại Nghĩa</td></tr>
+                        <tr><td>5</td><td>Ngô Công Tuấn Tài</td><td class="dharma-name">Thích Trí Cần</td><td>12/04/2014</td><td><span class="gender-nam">Nam</span></td><td>77748508-THCS Trần Đại Nghĩa</td></tr>
+                        <tr><td>6</td><td>Võ Đức Anh</td><td class="dharma-name">Thích Trí Phúc</td><td>30/11/2011</td><td><span class="gender-nam">Nam</span></td><td>77748508-THCS Trần Đại Nghĩa</td></tr>
+                        <tr><td>7</td><td>Lê Quang Minh</td><td class="dharma-name">Thích Trí Giác</td><td>09/02/2015</td><td><span class="gender-nam">Nam</span></td><td>77748413-TH Kim Dinh</td></tr>
+                        <tr><td>8</td><td>Nguyễn Tuấn Đăng</td><td class="dharma-name">Thích Trí An</td><td>21/01/2016</td><td><span class="gender-nam">Nam</span></td><td>77748413-TH Kim Dinh</td></tr>
+                        <tr><td>9</td><td>Đoàn Gia Bảo</td><td class="dharma-name">Thích Trí Thiện</td><td>20/07/2015</td><td><span class="gender-nam">Nam</span></td><td>77748413-TH Kim Dinh</td></tr>
+                        <tr><td>10</td><td>Bùi Nguyễn Hoàng Phúc</td><td class="dharma-name">Thích Trí Niệm</td><td>24/01/2018</td><td><span class="gender-nam">Nam</span></td><td>77748413-TH Kim Dinh</td></tr>
+                        <tr><td>11</td><td>Trương Nguyễn Quốc Sang</td><td class="dharma-name">Thích Trí Khai</td><td>07/02/2017</td><td><span class="gender-nam">Nam</span></td><td>77748413-TH Kim Dinh</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="closing">
+            Dạ chúng con kính trình Quý Thầy xem xét ạ.
+        </div>
+    </div>
+
+</body>
+</html>
